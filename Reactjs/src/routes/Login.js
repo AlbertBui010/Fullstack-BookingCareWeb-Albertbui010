@@ -9,6 +9,7 @@ import userIcon from '../../src/assets/images/user.svg';
 import passIcon from '../../src/assets/images/pass.svg';
 import './Login.scss';
 import { FormattedMessage } from 'react-intl';
+import { userService } from '../services';
 
 import adminService from '../services/adminService';
 
@@ -34,12 +35,16 @@ class Login extends Component {
         })
     }
 
-    onUsernameChange = (e) => {
-        this.setState({ username: e.target.value })
+    handleOnChangeUserName = (e) => {
+        this.setState({
+            username: e.target.value
+        })
     }
 
-    onPasswordChange = (e) => {
-        this.setState({ password: e.target.value })
+    handleOnChangePassword = (e) => {
+        this.setState({
+            password: e.target.value
+        })
     }
 
     redirectToSystemPage = () => {
@@ -116,7 +121,7 @@ class Login extends Component {
                                 type="text"
                                 className="form-control"
                                 value={username}
-                                onChange={this.onUsernameChange}
+                                onChange={(e) => this.handleOnChangeUserName(e)}
                             />
                         </div>
 
@@ -129,7 +134,7 @@ class Login extends Component {
                                 type="password"
                                 className="form-control"
                                 value={password}
-                                onChange={this.onPasswordChange}
+                                onChange={(e) => this.handleOnChangePassword(e)}
                             />
                         </div>
 

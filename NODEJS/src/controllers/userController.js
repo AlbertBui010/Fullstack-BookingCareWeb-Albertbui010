@@ -3,7 +3,7 @@ import userServices from '../services/userServices';
 let handleLogin = async (req, res) => {
 	let email = req.body.email;
 	let password = req.body.password;
-
+	
 	// Check email exist
 	if (!email || !password) {
 		return res.status(500).json({

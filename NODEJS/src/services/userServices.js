@@ -1,7 +1,6 @@
 import { InvalidConnectionError } from 'sequelize';
 import db from '../models/index';
 import bcrypt from 'bcryptjs';
-import { raw } from 'body-parser';
 
 let handleUserLogin = (email, password) => {
 	return new Promise(async (resolve, reject) => {
