@@ -1,4 +1,3 @@
-import { InvalidConnectionError } from 'sequelize';
 import db from '../models/index';
 import bcrypt from 'bcryptjs';
 
@@ -15,6 +14,7 @@ let handleUserLogin = (email, password) => {
 					},
 					raw: true, // Get user original
 				});
+				
 				if (user) {
 					let check = await bcrypt.compareSync(password, user.password);
 					if (check) {
