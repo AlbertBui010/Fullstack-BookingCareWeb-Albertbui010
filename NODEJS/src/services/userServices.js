@@ -1,3 +1,4 @@
+import { where } from 'sequelize';
 import db from '../models/index';
 import bcrypt from 'bcryptjs';
 
@@ -14,7 +15,7 @@ let handleUserLogin = (email, password) => {
 					},
 					raw: true, // Get user original
 				});
-				
+
 				if (user) {
 					let check = await bcrypt.compareSync(password, user.password);
 					if (check) {
@@ -55,6 +56,32 @@ let checkUserEmail = (userEmail) => {
 	});
 };
 
+let getAllUsers = (userId) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			let users = '';
+			if (userId === 'ALL') {
+				users = await db.User.findAll({
+					attributes: {
+						exclude: ['password'],
+					},
+				});
+			}
+			if (userId && userId !== 'ALL') {
+				users = await db.User.findOne({
+					where: { id: userId },
+					attributes: { exclude: ['password'] },
+				});
+			}
+			console.log(users);
+			resolve(users);
+		} catch (e) {
+			reject(e);
+		}
+	});
+};
+
 module.exports = {
 	handleUserLogin: handleUserLogin,
+	getAllUsers: getAllUsers,
 };
