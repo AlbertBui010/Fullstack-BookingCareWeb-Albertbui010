@@ -73,7 +73,6 @@ let getAllUsers = (userId) => {
 					attributes: { exclude: ['password'] },
 				});
 			}
-			console.log(users);
 			resolve(users);
 		} catch (e) {
 			reject(e);
