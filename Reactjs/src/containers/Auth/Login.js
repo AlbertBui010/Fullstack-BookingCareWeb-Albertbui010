@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import * as actions from '../../store/actions';
 
 import './Login.scss';
-import { handleLoginApi } from '../../services/userService'
+import { handleLoginApi } from '../../services/userService';
 import { userInfo } from 'os';
 
 class Login extends Component {
@@ -37,22 +37,22 @@ class Login extends Component {
 
 		try {
 			let data = {
-				"email": this.state.username,
-				"password": this.state.password,
-			}
+				email: this.state.username,
+				password: this.state.password,
+			};
 			let dataResponse = await handleLoginApi(data);
 			if (dataResponse && dataResponse.data.errCode !== 0) {
-				this.setState({errMessage: dataResponse.data.errMessage,});
+				this.setState({ errMessage: dataResponse.data.errMessage });
 			}
-			if(dataResponse && dataResponse.data.errCode === 0) {
+			if (dataResponse && dataResponse.data.errCode === 0) {
 				this.props.userLoginSucessfully(data.user);
 			}
-		} catch(e) {
+		} catch (e) {
 			if (e.response) {
 				if (e.response.data) {
 					this.setState({
 						errMessage: e.response.data.message,
-					})
+					});
 				}
 			}
 		}
@@ -99,7 +99,7 @@ class Login extends Component {
 								</span>
 							</div>
 						</div>
-						<div className='col-12' style={{color: 'red'}}>
+						<div className="col-12" style={{ color: 'red' }}>
 							{this.state.errMessage}
 						</div>
 						<div className="col-12">

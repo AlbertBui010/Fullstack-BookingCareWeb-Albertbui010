@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers } from '../../services/userService';
+import { getAllUsers, createNewUserService } from '../../services/userService';
 import ModalUser from './ModalUser';
 
 class UserManage extends Component {
@@ -15,6 +15,11 @@ class UserManage extends Component {
 	}
 
 	async componentDidMount() {
+		let res = await this.getAllUsersFromReact();
+		console.log(res);
+	}
+
+	getAllUsersFromReact = async () => {
 		let res = await getAllUsers('ALL');
 		console.log(res);
 		if (res && res.data.errCode === 0) {
@@ -22,7 +27,7 @@ class UserManage extends Component {
 				arrUsers: res.data.users,
 			});
 		}
-	}
+	};
 
 	handleAddNewuser = () => {
 		this.setState({
@@ -35,51 +40,70 @@ class UserManage extends Component {
 			isOpenModalUser: !this.state.isOpenModalUser,
 		});
 	};
-	// Life cycle
-	// 1. Run constructor -> init state
-	// 2. Did mount (set state)
-	// 3. Render
-	//
+
+	createNewUser = async (data) => {
+		try {
+			let res = await createNewUserService(data);
+			if (res && res.data.errCode !== 0) {
+				alert(res.data.errMessage);
+			} else {
+				await this.getAllUsersFromReact();
+				this.setState({
+					isOpenModalUser: false,
+				});
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
 	render() {
 		let arrUsers = this.state.arrUsers;
 		return (
 			<div className="users-container">
-				<ModalUser isOpen={this.state.isOpenModalUser} test={123} toggleFromParent={this.toggleModalUser} />
+				<ModalUser
+					isOpen={this.state.isOpenModalUser}
+					test={123}
+					toggleFromParent={this.toggleModalUser}
+					createNewUser={this.createNewUser}
+				/>
 				<div className="title text-center">Manage users with Albert Bui</div>
 				<div className="mx-1">
 					<button className="btn btn-primary btn-new-user" onClick={() => this.handleAddNewuser()}>
-						<i class="fas fa-plus"></i>
+						<i className="fas fa-plus"></i>
 						Add new user
 					</button>
 				</div>
 				<div className="users-table">
 					<table id="customers">
-						<tr>
-							<th>Email</th>
-							<th>Firstname</th>
-							<th>Lastname</th>
-							<th>Address</th>
-							<th>Action</th>
-						</tr>
-						{arrUsers &&
-							arrUsers.map((item, index) => {
-								return (
-									<tr key={index}>
-										<td>{item.email}</td>
-										<td>{item.firstName}</td>
-										<td>{item.lastName}</td>
-										<td>{item.address}</td>
-										<td>
-											<button className="btn-edit">
-												<i className="fas fa-pencil-alt"></i>
-											</button>
-											<button className="btn-delete">
-												<i className="fas fa-trash"></i>
-											</button>
-										</td>
-									</tr>
-								);
-							})}
+						<tbody>
+							<tr>
+								<th>Email</th>
+								<th>Firstname</th>
+								<th>Lastname</th>
+								<th>Address</th>
+								<th>Action</th>
+							</tr>
+							{arrUsers &&
+								arrUsers.map((item, index) => {
+									return (
+										<tr key={index}>
+											<td>{item.email}</td>
+											<td>{item.firstName}</td>
+											<td>{item.lastName}</td>
+											<td>{item.address}</td>
+											<td>
+												<button className="btn-edit">
+													<i className="fas fa-pencil-alt"></i>
+												</button>
+												<button className="btn-delete">
+													<i className="fas fa-trash"></i>
+												</button>
+											</td>
+										</tr>
+									);
+								})}
+						</tbody>
 					</table>
 				</div>
 			</div>
