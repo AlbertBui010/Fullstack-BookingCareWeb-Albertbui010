@@ -6,7 +6,11 @@ const handleLoginApi = (data) => {
 
 const getAllUsers = (idInput) => {
 	//template string
-	return axios.get(`/api/get-all-users?id=${idInput}`);
+	return axios.get('/api/get-all-users', {
+		params: {
+			id: idInput,
+		},
+	});
 };
 
 const createNewUserService = (data) => {
@@ -14,4 +18,12 @@ const createNewUserService = (data) => {
 	return axios.post('/api/create-new-user', data);
 };
 
-export { handleLoginApi, getAllUsers, createNewUserService };
+const deleteUserByIdService = (userId) => {
+	return axios.delete('/api/delete-user', {
+		data: {
+			id: userId,
+		},
+	});
+};
+
+export { handleLoginApi, getAllUsers, createNewUserService, deleteUserByIdService };
