@@ -1,11 +1,14 @@
 @import "variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
-$fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
+// Đường dẫn font mới cho FontAwesome
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+
+// Import FontAwesome SCSS files
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
 
 @import "base";
 @import "form";
