@@ -6,7 +6,7 @@
         width: 100%;
         height: 100%;
         display: flex;
-        padding: 0 20px;
+        padding: 0 80px;
 
         .left-content {
             display: flex;
@@ -54,18 +54,20 @@
 
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 18px;
+            flex-direction: row-reverse;
+
 
             .suppport {
                 display: flex;
                 align-items: center;
+                padding-right: 40px;
+                cursor: pointer;
 
                 i {
                     margin-right: 6px;
                     padding: 9px;
                     border-radius: 50%;
-                    background-color: black;
+                    background-color: rgb(62, 61, 61);
                     color: white;
                     display: flex;
                     align-items: center;
@@ -74,16 +76,143 @@
                 }
             }
 
-            .flag {
-                display: flex;
-                align-items: center;
+            .language-vn,
+            .language-en {
+                font-weight: 600;
+                cursor: pointer;
+                color: grey;
+                font-size: 16px;
+            }
 
-                i {
-                    margin-right: 6px;
-                    font-size: 20px;
+            .language-vn {
+                &.active {
+                    color: orange;
+                }
+            }
+
+            .language-en {
+                margin-right: 8px;
+
+                &.active {
+                    color: red;
                 }
             }
 
         }
     }
+}
+
+.home-header-banner {
+    background: url('../../assets/header-banner.webp') center center no-repeat;
+    height: 485px;
+    margin: -15px;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+
+    .content-up {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.25));
+        height: 60%;
+
+        .title,
+        .subtitle {
+            text-align: center;
+            font-size: 30px;
+            text-shadow: 1px 1px 1px black;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .title {
+            padding-top: 80px;
+        }
+
+        .subtitle {
+            margin-bottom: 30px;
+        }
+
+        .search {
+            text-align: center;
+            width: fit-content;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            padding: 10px;
+            border-radius: 25px;
+            background-color: #f8e985;
+            border: none;
+
+            i {
+                margin: 0 5px;
+                padding: 0 6px;
+                font-size: 18px;
+            }
+
+            input {
+                height: 30px;
+                width: 500px;
+                background-color: transparent;
+                outline: none;
+                border: none;
+            }
+        }
+    }
+
+    .content-down {
+        height: 40%;
+        display: flex;
+        align-items: end;
+        width: 100%;
+        justify-content: center;
+        background-image: linear-gradient(to top, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.1));
+
+        .options {
+            display: flex;
+            gap: 16px;
+
+            .option-child {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 140px;
+                cursor: pointer;
+
+
+                .icon {
+                    font-size: 18px;
+                    border-radius: 10px;
+                    padding: 14px;
+                    background-color: white;
+                    margin-bottom: 8px;
+                    box-shadow: 0px 1px 1px 0px black;
+                }
+
+                .text {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: white;
+                    text-align: center;
+                    text-shadow: 2px 2px 2px black;
+                }
+            }
+
+            .option-child:hover {
+
+                .text,
+                .icon {
+                    color: aqua;
+                }
+            }
+        }
+
+    }
+
+}
+
+.temp {
+    width: 100%;
+
+    height: 1000px;
 }
