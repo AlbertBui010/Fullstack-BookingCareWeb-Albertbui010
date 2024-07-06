@@ -76,25 +76,30 @@
                 }
             }
 
-            .language-vn,
-            .language-en {
+            .language-vi {
                 font-weight: 600;
                 cursor: pointer;
                 color: grey;
                 font-size: 16px;
-            }
 
-            .language-vn {
                 &.active {
-                    color: orange;
+                    span {
+                        color: orange;
+                    }
                 }
             }
 
             .language-en {
                 margin-right: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                color: grey;
+                font-size: 16px;
 
                 &.active {
-                    color: red;
+                    span {
+                        color: red;
+                    }
                 }
             }
 
@@ -105,7 +110,6 @@
 .home-header-banner {
     background: url('../../assets/header-banner.webp') center center no-repeat;
     height: 485px;
-    margin: -15px;
     background-size: cover;
     display: flex;
     flex-direction: column;
