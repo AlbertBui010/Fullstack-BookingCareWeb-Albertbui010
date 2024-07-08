@@ -16,7 +16,6 @@ class UserRedux extends Component {
 				<div className="user-redux-body">
 					<div>Add new user</div>
 				</div>
-				;
 			</div>
 		);
 	}

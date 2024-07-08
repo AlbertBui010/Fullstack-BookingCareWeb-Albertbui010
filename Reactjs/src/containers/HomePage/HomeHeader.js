@@ -76,7 +76,7 @@ class HomeHeader extends Component {
 							<FormattedMessage id="banner.subtitle" />
 						</div>
 						<div className="search">
-							<i class="fa-solid fa-magnifying-glass"></i>
+							<i className="fa-solid fa-magnifying-glass"></i>
 							<input type="text" placeholder="Tìm chuyên khoa khám bệnh" />
 						</div>
 					</div>
@@ -84,7 +84,7 @@ class HomeHeader extends Component {
 						<div className="options">
 							<div className="option-child">
 								<div className="icon">
-									<i class="fa-solid fa-hospital"></i>
+									<i className="fa-solid fa-hospital"></i>
 								</div>
 								<div className="text">
 									<FormattedMessage id="banner.medical-examination" />
@@ -92,7 +92,7 @@ class HomeHeader extends Component {
 							</div>
 							<div className="option-child">
 								<div className="icon">
-									<i class="fa-solid fa-hospital"></i>
+									<i className="fa-solid fa-hospital"></i>
 								</div>
 								<div className="text">
 									<FormattedMessage id="banner.remote-examination" />
@@ -100,7 +100,7 @@ class HomeHeader extends Component {
 							</div>
 							<div className="option-child">
 								<div className="icon">
-									<i class="fa-solid fa-hospital"></i>
+									<i className="fa-solid fa-hospital"></i>
 								</div>
 								<div className="text">
 									<FormattedMessage id="banner.general-examination" />
@@ -108,7 +108,7 @@ class HomeHeader extends Component {
 							</div>
 							<div className="option-child">
 								<div className="icon">
-									<i class="fa-solid fa-hospital"></i>
+									<i className="fa-solid fa-hospital"></i>
 								</div>
 								<div className="text">
 									<FormattedMessage id="banner.medical-tests" />
@@ -116,7 +116,7 @@ class HomeHeader extends Component {
 							</div>
 							<div className="option-child">
 								<div className="icon">
-									<i class="fa-solid fa-hospital"></i>
+									<i className="fa-solid fa-hospital"></i>
 								</div>
 								<div className="text">
 									<FormattedMessage id="banner.metal-health" />
@@ -124,7 +124,7 @@ class HomeHeader extends Component {
 							</div>
 							<div className="option-child">
 								<div className="icon">
-									<i class="fa-solid fa-hospital"></i>
+									<i className="fa-solid fa-hospital"></i>
 								</div>
 								<div className="text">
 									<FormattedMessage id="banner.dental-examination" />
