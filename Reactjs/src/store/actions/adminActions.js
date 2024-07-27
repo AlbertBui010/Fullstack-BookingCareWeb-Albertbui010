@@ -3,6 +3,7 @@ import {
 	createNewUserService,
 	getAllUsers,
 	deleteUserByIdService,
+	editUserService,
 } from '../../services/userService';
 
 import actionTypes from './actionTypes';
@@ -87,7 +88,7 @@ export const fetchRoleFailed = () => ({
 	type: actionTypes.FETCH_ROLE_FAILED,
 });
 
-// create new user
+// C: create new user
 export const createNewUser = (data) => {
 	return async (dispatch, getState) => {
 		try {
@@ -116,7 +117,7 @@ export const saveUserFailed = () => ({
 	type: 'CREATE_USER_FAILED',
 });
 
-// get all user
+// R: get all users
 export const fetchAllUsersStart = () => {
 	return async (dispatch, getState) => {
 		try {
@@ -144,6 +145,36 @@ export const fetchAllUsersFailed = () => ({
 	type: actionTypes.FETCH_ALL_USERS_FAILED,
 });
 
+// U: edit user
+export const editAUser = (data) => {
+	return async (dispatch, getState) => {
+		try {
+			let res = await editUserService(data);
+			toast.success('Successfully edited user');
+			if (res && res.data.errCode === 0) {
+				dispatch(editUserSuccess(data));
+				dispatch(fetchAllUsersStart());
+			} else {
+				toast.error('User edition failed');
+				dispatch(editUserFailed());
+			}
+		} catch (e) {
+			toast.error('User edition error');
+			dispatch(editUserFailed());
+			console.log('User edition failed', e);
+		}
+	};
+};
+
+export const editUserSuccess = () => ({
+	type: actionTypes.EDIT_USER_SUCCESS,
+});
+
+export const editUserFailed = () => ({
+	type: actionTypes.EDIT_USER_FAILED,
+});
+
+// D: delete user
 export const deleteAUser = (userId) => {
 	return async (dispatch, getState) => {
 		try {
