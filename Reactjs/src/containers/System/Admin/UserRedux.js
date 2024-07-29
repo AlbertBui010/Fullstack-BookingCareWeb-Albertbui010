@@ -1,11 +1,12 @@
 import React, { Component, useReducer } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { LANGUAGES, CRUD_ACTIONS } from '../../../utils';
+import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
 import './UserRedux.scss';
 import * as actions from '../../../store/actions';
 import TableManageUser from './TableManageUser';
 import { act } from 'react';
+import { isBuffer } from 'lodash';
 
 class UserRedux extends Component {
 	constructor(props) {
@@ -89,18 +90,20 @@ class UserRedux extends Component {
 				position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : '',
 				avatar: '',
 				action: CRUD_ACTIONS.CREATE,
+				previewImgURL: '',
 			});
 		}
 	}
 
-	handleOnChangeImage = (event) => {
+	handleOnChangeImage = async (event) => {
 		let files = event.target.files;
 		let file = files[0];
 		if (file) {
+			let base64 = await CommonUtils.getBase64(file);
 			let objectUrl = URL.createObjectURL(file);
 			this.setState({
 				previewImgURL: objectUrl,
-				avatar: file,
+				avatar: base64,
 			});
 		}
 	};
@@ -131,6 +134,7 @@ class UserRedux extends Component {
 				gender: this.state.gender,
 				roleId: this.state.role,
 				positionId: this.state.position,
+				avatar: this.state.avatar,
 			});
 			// this.props.fetchUserRedux();
 		}
@@ -148,7 +152,7 @@ class UserRedux extends Component {
 				gender: this.state.gender,
 				roleId: this.state.role,
 				positionId: this.state.position,
-				// avatar: this.state.avatar
+				avatar: this.state.avatar,
 			});
 		}
 	};
@@ -204,8 +208,10 @@ class UserRedux extends Component {
 	};
 
 	handleEditUserFromParent = (user) => {
-		console.log('Check handle edit user from parent: ', user);
-
+		let imageBase64 = '';
+		if (user.image) {
+			imageBase64 = new Buffer(user.image, 'base64').toString('binary');
+		}
 		this.setState({
 			email: user.email,
 			password: 'HARDCODE',
@@ -216,7 +222,8 @@ class UserRedux extends Component {
 			gender: user.gender,
 			role: user.roleId,
 			position: user.positionId,
-			avatar: user.image,
+			avatar: '',
+			previewImgURL: imageBase64,
 			action: CRUD_ACTIONS.EDIT,
 			userEditId: user.id,
 		});
