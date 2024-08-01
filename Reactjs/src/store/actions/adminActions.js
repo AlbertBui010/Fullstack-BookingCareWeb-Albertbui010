@@ -4,6 +4,7 @@ import {
 	getAllUsers,
 	deleteUserByIdService,
 	editUserService,
+	getTopDoctorHomeServices,
 } from '../../services/userService';
 
 import actionTypes from './actionTypes';
@@ -202,3 +203,27 @@ export const deleteUserSuccess = () => ({
 export const deleteUserFailed = () => ({
 	type: actionTypes.FETCH_ALL_USERS_FAILED,
 });
+
+export const fetchTopDoctor = () => {
+	return async (dispatch, getState) => {
+		try {
+			let res = await getTopDoctorHomeServices('');
+			let resData = res.data;
+			if (resData && resData.errCode === 0) {
+				dispatch({
+					type: actionTypes.FETCH_TOP_DOCTORS_SUCCESS,
+					dataDoctors: resData.data,
+				});
+			} else {
+				dispatch({
+					type: actionTypes.FETCH_TOP_DOCTORS_FAILED,
+				});
+			}
+		} catch (e) {
+			console.log('Fetch top doctors failed: ', e);
+			dispatch({
+				type: actionTypes.FETCH_TOP_DOCTORS_FAILED,
+			});
+		}
+	};
+};

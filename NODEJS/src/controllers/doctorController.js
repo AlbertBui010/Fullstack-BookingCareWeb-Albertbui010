@@ -1,0 +1,20 @@
+import doctorServices from '../services/doctorServices';
+
+let getTopDoctorHome = async (req, res) => {
+	let limit = req.query.limit;
+	if (!limit) limit = 10;
+	try {
+		let doctorsRes = await doctorServices.getTopDoctorHomeServices(+limit);
+		return res.status(200).json(doctorsRes);
+	} catch (e) {
+		console.log(e);
+		return res.status(200).json({
+			errCode: -1,
+			message: 'Error from server...',
+		});
+	}
+};
+
+module.exports = {
+	getTopDoctorHome: getTopDoctorHome,
+};

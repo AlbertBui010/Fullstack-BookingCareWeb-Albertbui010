@@ -38,6 +38,10 @@ const actionTypes = Object.freeze({
 	// delete user
 	DELETE_USER_SUCCESS: 'DELETE_USER_SUCCESS',
 	DELETE_USER_FAILED: 'DELETE_USER_FAILED',
+
+	// doctor
+	FETCH_TOP_DOCTORS_SUCCESS: 'FETCH_TOP_DOCTORS_SUCCESS',
+	FETCH_TOP_DOCTORS_FAILED: 'FETCH_TOP_DOCTORS_FAILED',
 });
 
 export default actionTypes;

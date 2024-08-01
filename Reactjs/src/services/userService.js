@@ -14,7 +14,6 @@ const getAllUsers = (idInput) => {
 };
 
 const createNewUserService = (data) => {
-	console.log('Check data: ', data);
 	return axios.post('/api/create-new-user', data);
 };
 
@@ -34,4 +33,16 @@ const getAllCodeService = (inputType) => {
 	return axios.get(`/api/allcode?type=${inputType}`);
 };
 
-export { handleLoginApi, getAllUsers, createNewUserService, deleteUserByIdService, editUserService, getAllCodeService };
+const getTopDoctorHomeServices = (limit) => {
+	return axios.get(`/api/top-doctor-home?limit=${limit}`);
+};
+
+export {
+	handleLoginApi,
+	getAllUsers,
+	createNewUserService,
+	deleteUserByIdService,
+	editUserService,
+	getAllCodeService,
+	getTopDoctorHomeServices,
+};

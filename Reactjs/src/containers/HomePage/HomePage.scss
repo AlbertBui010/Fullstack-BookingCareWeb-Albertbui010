@@ -56,17 +56,25 @@
 
             .section-body {
                 .section-customize {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
+                    border: 1px solid yellow;
 
-                    img {
+                    .section-img {
+                        margin-top: 12px !important;
                         width: 180px;
+                        height: 180px;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        background-position: center;
+                        margin: auto;
+                        border-radius: 50%;
+                        background-color: grey;
                     }
 
                     .position {
                         div {
                             font-size: 15px;
+                            margin-top: 0;
+                            margin-bottom: 6px;
                         }
                     }
                 }
