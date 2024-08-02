@@ -1,4 +1,3 @@
-import { act } from 'react';
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
@@ -8,6 +7,7 @@ const initialState = {
 	positions: [],
 	users: [],
 	topDoctors: [],
+	allDoctors: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -67,7 +67,16 @@ const adminReducer = (state = initialState, action) => {
 			return {
 				...copyState,
 			};
-		case actionTypes.FETCH_TOP_DOCTORS_SUCCESS:
+		case actionTypes.FETCH_ALL_DOCTORS_SUCCESS:
+			copyState.allDoctors = action.dataDr;
+			return {
+				...copyState,
+			};
+		case actionTypes.FETCH_ALL_DOCTORS_FAILED:
+			copyState.allDoctors = [];
+			return {
+				...copyState,
+			};
 
 		default:
 			return state;

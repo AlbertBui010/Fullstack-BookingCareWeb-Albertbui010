@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './ManageDoctor.scss';
+import { LANGUAGES } from '../../../utils';
 import * as actions from '../../../store/actions';
-
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
-
 import Select from 'react-select';
-
-const options = [
-	{ value: 'chocolate', label: 'Chocolate' },
-	{ value: 'strawberry', label: 'Strawberry' },
-	{ value: 'vanilla', label: 'Vanilla' },
-];
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -25,12 +18,48 @@ class ManageDoctor extends Component {
 			contentHTML: '',
 			selectedOption: '',
 			description: '',
+			doctorsList: [],
 		};
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		this.props.fetchAllDoctors();
+	}
 
-	componentDidUpdate(prevProps, prevState, snapshot) {}
+	buildDataInputSelect = (inputData) => {
+		let result = [];
+		let { language } = this.props;
+
+		if (inputData && inputData.length > 0) {
+			inputData.map((item, index) => {
+				let obj = {};
+				let labelVi = `${item.lastName} ${item.firstName}`;
+				let labelEn = `${item.firstName} ${item.lastName} `;
+
+				obj.label = language === LANGUAGES.VI ? labelVi : labelEn;
+				obj.value = item.id;
+				result.push(obj);
+			});
+		}
+		return result;
+	};
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		if (prevProps.allDoctorsFromRedux !== this.props.allDoctorsFromRedux) {
+			let dataSelect = this.buildDataInputSelect(this.props.allDoctorsFromRedux);
+			this.setState({
+				doctorsList: dataSelect,
+			});
+		}
+
+		if (prevProps.language !== this.props.language) {
+			let dataSelect = this.buildDataInputSelect(this.props.allDoctorsFromRedux);
+			this.setState({
+				doctorsList: dataSelect,
+			});
+		}
+	}
+
 	handleEditorChange = ({ html, text }) => {
 		this.setState({
 			contentMarkdown: text,
@@ -39,7 +68,12 @@ class ManageDoctor extends Component {
 	};
 
 	handleSaveContentMarkdown = () => {
-		console.log('Albert check save', this.state);
+		this.props.saveDetailInforDoctor({
+			contentMarkdown: this.state.contentMarkdown,
+			contentHTML: this.state.contentHTML,
+			description: this.state.description,
+			doctorId: this.state.selectedOption.value,
+		});
 	};
 
 	handleChange = (selectedOption) => {
@@ -58,7 +92,11 @@ class ManageDoctor extends Component {
 				<div className="more-infor">
 					<div className="content-left form-group">
 						<label>Chọn bác sĩ</label>
-						<Select value={this.state.selectedOption} onChange={this.handleChange} options={options} />
+						<Select
+							value={this.state.selectedOption}
+							onChange={this.handleChange}
+							options={this.state.doctorsList}
+						/>
 					</div>
 					<div className="content-right">
 						<label>Thông tin giới thiệu:</label>
@@ -90,14 +128,15 @@ class ManageDoctor extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		listUsers: state.admin.users,
+		language: state.app.language,
+		allDoctorsFromRedux: state.admin.allDoctors,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
-		deleteAUserRedux: (id) => dispatch(actions.deleteAUser(id)),
+		fetchAllDoctors: () => dispatch(actions.fetchAllDoctors()),
+		saveDetailInforDoctor: (data) => dispatch(actions.saveDetailInforDoctor(data)),
 	};
 };
 

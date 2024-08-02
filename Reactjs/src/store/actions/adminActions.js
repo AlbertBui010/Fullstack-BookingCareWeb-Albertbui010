@@ -5,6 +5,8 @@ import {
 	deleteUserByIdService,
 	editUserService,
 	getTopDoctorHomeServices,
+	getAllDoctors,
+	saveDetailInforDoctorServices,
 } from '../../services/userService';
 
 import actionTypes from './actionTypes';
@@ -223,6 +225,55 @@ export const fetchTopDoctor = () => {
 			console.log('Fetch top doctors failed: ', e);
 			dispatch({
 				type: actionTypes.FETCH_TOP_DOCTORS_FAILED,
+			});
+		}
+	};
+};
+
+export const fetchAllDoctors = () => {
+	return async (dispatch, getState) => {
+		try {
+			let res = await getAllDoctors();
+			let resData = res.data;
+			if (resData && resData.errCode === 0) {
+				dispatch({
+					type: actionTypes.FETCH_ALL_DOCTORS_SUCCESS,
+					dataDr: resData.data,
+				});
+			} else {
+				dispatch({
+					type: actionTypes.FETCH_ALL_DOCTORS_FAILED,
+				});
+			}
+		} catch (e) {
+			console.log('Fetch all doctors failed: ', e);
+			dispatch({
+				type: actionTypes.FETCH_ALL_DOCTORS_FAILED,
+			});
+		}
+	};
+};
+
+export const saveDetailInforDoctor = (data) => {
+	return async (dispatch, getState) => {
+		try {
+			let res = await saveDetailInforDoctorServices(data);
+			console.log('ALbert check res from adminAction: ', res);
+			if (res.data && res.data.errCode === 0) {
+				toast.success('Update detail information doctor successfully');
+				dispatch({
+					type: actionTypes.SAVE_DETAIL_INFOR_DOCTOR_SUCCESS,
+				});
+			} else {
+				toast.error('Update detail information doctor failed!');
+				dispatch({
+					type: actionTypes.SAVE_DETAIL_INFOR_DOCTOR_FAILED,
+				});
+			}
+		} catch (e) {
+			toast.error('Update detail information doctor failed!');
+			dispatch({
+				type: actionTypes.SAVE_DETAIL_INFOR_DOCTOR_FAILED,
 			});
 		}
 	};
