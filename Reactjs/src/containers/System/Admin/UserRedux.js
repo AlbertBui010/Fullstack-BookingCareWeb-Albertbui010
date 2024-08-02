@@ -5,9 +5,8 @@ import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
 import './UserRedux.scss';
 import * as actions from '../../../store/actions';
 import TableManageUser from './TableManageUser';
-import { act } from 'react';
-import { isBuffer } from 'lodash';
-
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 class UserRedux extends Component {
 	constructor(props) {
 		super(props);
@@ -437,12 +436,12 @@ class UserRedux extends Component {
 						</div>
 					</div>
 				</div>
-				{/* {this.state.isOpen === true && (
+				{this.state.isOpen === true && (
 					<Lightbox
 						mainSrc={this.state.previewImgURL}
 						onCloseRequest={() => this.setState({ isOpen: false })}
 					/>
-				)} */}
+				)}
 			</div>
 		);
 	}
