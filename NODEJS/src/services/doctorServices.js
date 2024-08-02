@@ -1,4 +1,4 @@
-import { where } from 'sequelize';
+import { UUID, where } from 'sequelize';
 import db from '../models';
 
 let getTopDoctorHomeServices = (limitInput) => {
@@ -76,8 +76,43 @@ let saveDetailInforDoctorServices = (data) => {
 	});
 };
 
+let getDetailDoctorByIdServices = (inputId) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			if (!inputId) {
+				resolve({
+					errCode: 1,
+					errMessage: 'Missing parameters',
+				});
+			} else {
+				let data = await db.User.findOne({
+					where: {
+						id: inputId,
+					},
+					attributes: {
+						exclude: ['password', 'image'],
+					},
+					include: [
+						{ model: db.Markdown, attributes: ['description', 'contentHTML', 'contentMarkdown'] },
+						{ model: db.Allcode, as: 'positionData', attributes: ['valueEn', 'valueVi'] },
+					],
+					raw: true,
+					nest: true,
+				});
+				resolve({
+					errCode: 0,
+					data: data,
+				});
+			}
+		} catch (e) {
+			reject(e);
+		}
+	});
+};
+
 module.exports = {
 	getTopDoctorHomeServices: getTopDoctorHomeServices,
 	getAllDoctorsServices: getAllDoctorsServices,
 	saveDetailInforDoctorServices: saveDetailInforDoctorServices,
+	getDetailDoctorByIdServices: getDetailDoctorByIdServices,
 };
