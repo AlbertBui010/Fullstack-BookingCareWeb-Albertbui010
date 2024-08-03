@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Slider from 'react-slick';
-import specialtyImg from '../../../assets/outstanding-doctor/doctor.jpg';
 import * as actions from '../../../store/actions';
 import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
 
 class OutStandingDoctor extends Component {
 	constructor(props) {
@@ -25,6 +25,11 @@ class OutStandingDoctor extends Component {
 			});
 		}
 	}
+
+	handleViewDetailDoctor = (doctor) => {
+		// console.log('Albert check handle view detail:', doctor);
+		this.props.history.push(`/detail-doctor/${doctor.id}`);
+	};
 	render() {
 		let arrDoctors = this.state.arrDoctors;
 		let { language } = this.props;
@@ -54,7 +59,11 @@ class OutStandingDoctor extends Component {
 									let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName} `;
 									let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`;
 									return (
-										<div className="section-customize" key={index}>
+										<div
+											className="section-customize"
+											key={index}
+											onClick={() => this.handleViewDetailDoctor(item)}
+										>
 											<div
 												className="section-img"
 												style={{ backgroundImage: `url(${imageBase64})` }}
@@ -88,4 +97,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor));

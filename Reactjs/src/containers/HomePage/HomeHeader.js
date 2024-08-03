@@ -66,73 +66,74 @@ class HomeHeader extends Component {
 						</div>
 					</div>
 				</div>
-
-				<div className="home-header-banner">
-					<div className="content-up">
-						<div className="title">
-							<FormattedMessage id="banner.title" />
+				{this.props.isShowBanner === true && (
+					<div className="home-header-banner">
+						<div className="content-up">
+							<div className="title">
+								<FormattedMessage id="banner.title" />
+							</div>
+							<div className="subtitle">
+								<FormattedMessage id="banner.subtitle" />
+							</div>
+							<div className="search">
+								<i className="fa-solid fa-magnifying-glass"></i>
+								<input type="text" placeholder="Tìm chuyên khoa khám bệnh" />
+							</div>
 						</div>
-						<div className="subtitle">
-							<FormattedMessage id="banner.subtitle" />
-						</div>
-						<div className="search">
-							<i className="fa-solid fa-magnifying-glass"></i>
-							<input type="text" placeholder="Tìm chuyên khoa khám bệnh" />
+						<div className="content-down">
+							<div className="options">
+								<div className="option-child">
+									<div className="icon">
+										<i className="fa-solid fa-hospital"></i>
+									</div>
+									<div className="text">
+										<FormattedMessage id="banner.medical-examination" />
+									</div>
+								</div>
+								<div className="option-child">
+									<div className="icon">
+										<i className="fa-solid fa-hospital"></i>
+									</div>
+									<div className="text">
+										<FormattedMessage id="banner.remote-examination" />
+									</div>
+								</div>
+								<div className="option-child">
+									<div className="icon">
+										<i className="fa-solid fa-hospital"></i>
+									</div>
+									<div className="text">
+										<FormattedMessage id="banner.general-examination" />
+									</div>
+								</div>
+								<div className="option-child">
+									<div className="icon">
+										<i className="fa-solid fa-hospital"></i>
+									</div>
+									<div className="text">
+										<FormattedMessage id="banner.medical-tests" />
+									</div>
+								</div>
+								<div className="option-child">
+									<div className="icon">
+										<i className="fa-solid fa-hospital"></i>
+									</div>
+									<div className="text">
+										<FormattedMessage id="banner.metal-health" />
+									</div>
+								</div>
+								<div className="option-child">
+									<div className="icon">
+										<i className="fa-solid fa-hospital"></i>
+									</div>
+									<div className="text">
+										<FormattedMessage id="banner.dental-examination" />
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div className="content-down">
-						<div className="options">
-							<div className="option-child">
-								<div className="icon">
-									<i className="fa-solid fa-hospital"></i>
-								</div>
-								<div className="text">
-									<FormattedMessage id="banner.medical-examination" />
-								</div>
-							</div>
-							<div className="option-child">
-								<div className="icon">
-									<i className="fa-solid fa-hospital"></i>
-								</div>
-								<div className="text">
-									<FormattedMessage id="banner.remote-examination" />
-								</div>
-							</div>
-							<div className="option-child">
-								<div className="icon">
-									<i className="fa-solid fa-hospital"></i>
-								</div>
-								<div className="text">
-									<FormattedMessage id="banner.general-examination" />
-								</div>
-							</div>
-							<div className="option-child">
-								<div className="icon">
-									<i className="fa-solid fa-hospital"></i>
-								</div>
-								<div className="text">
-									<FormattedMessage id="banner.medical-tests" />
-								</div>
-							</div>
-							<div className="option-child">
-								<div className="icon">
-									<i className="fa-solid fa-hospital"></i>
-								</div>
-								<div className="text">
-									<FormattedMessage id="banner.metal-health" />
-								</div>
-							</div>
-							<div className="option-child">
-								<div className="icon">
-									<i className="fa-solid fa-hospital"></i>
-								</div>
-								<div className="text">
-									<FormattedMessage id="banner.dental-examination" />
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				)}
 			</React.Fragment>
 		);
 	}
