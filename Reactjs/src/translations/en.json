@@ -60,6 +60,9 @@
 			"manage-specialty": "Specialty management",
 			"handbook": "Handbook",
 			"manage-handbook": "Handbook management"
+		},
+		"doctor": {
+			"manage-schedule": "Manage medical appointments"
 		}
 	},
 	"manage-user": {

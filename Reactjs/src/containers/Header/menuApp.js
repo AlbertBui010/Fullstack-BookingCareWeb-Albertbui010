@@ -4,14 +4,17 @@ export const adminMenu = [
 		name: 'menu.admin.manage-user',
 		menus: [
 			{
+				// user manage
 				name: 'menu.admin.crud',
 				link: '/system/user-manage',
 			},
 			{
+				// crud user
 				name: 'menu.admin.crud-redux',
 				link: '/system/user-redux',
 			},
 			{
+				// manage-doctor
 				name: 'menu.admin.manage-doctor',
 				link: '/system/manage-doctor',
 				// subMenus: [
@@ -19,9 +22,14 @@ export const adminMenu = [
 				// 	{ name: 'menu.system.system-administrator.user-redux', link: '/system/user-redux' },
 				// ],
 			},
+			// { // manage-admin
+			// 	name: 'menu.admin.manage-admin',
+			// 	link: '/system/user-admin',
+			// },
 			{
-				name: 'menu.admin.manage-admin',
-				link: '/system/user-admin',
+				// Manage schedule doctor
+				name: 'menu.doctor.manage-schedule',
+				link: '/doctor/manage-schedule',
 			},
 		],
 	},
@@ -52,6 +60,19 @@ export const adminMenu = [
 			{
 				name: 'menu.admin.manage-handbook',
 				link: '/system/manage-handbook',
+			},
+		],
+	},
+];
+
+export const doctorMenu = [
+	{
+		name: 'menu.admin.manage-user',
+		menus: [
+			{
+				// Manage schedule doctor
+				name: 'menu.doctor.manage-schedule',
+				link: '/doctor/manage-schedule',
 			},
 		],
 	},
