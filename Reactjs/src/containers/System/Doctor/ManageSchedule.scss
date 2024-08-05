@@ -1,0 +1,41 @@
+.manage-schedule-container {
+    .msch-title {
+        margin: 12px auto;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 600;
+        text-transform: uppercase;
+
+
+    }
+
+    .pick-hours-container {
+        // height: 200px;
+        // border: 1px solid red;
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 10px;
+        padding: 20px;
+
+        .btn-schedule {
+            border: 1px solid black;
+            border-radius: 0;
+            background-color: cornsilk;
+
+            &:hover,
+            &:focus {
+                background-color: rgb(245, 231, 174);
+                box-shadow: none;
+            }
+
+            &:focus {
+                border: 2px solid black;
+            }
+        }
+    }
+
+    .btn-manage-sch {
+        width: fit-content;
+        margin: auto;
+    }
+}

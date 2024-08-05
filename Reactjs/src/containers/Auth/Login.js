@@ -6,6 +6,7 @@ import * as actions from '../../store/actions';
 import './Login.scss';
 import { handleLoginApi } from '../../services/userService';
 import { userInfo } from 'os';
+import { copyFileSync } from 'fs';
 
 class Login extends Component {
 	constructor(props) {
@@ -58,10 +59,17 @@ class Login extends Component {
 		}
 	};
 
-	handleShowHidPassword = () => {
+	handleShowHidePassword = () => {
 		this.setState({
 			isShowPassword: !this.state.isShowPassword,
 		});
+	};
+
+	handleKeyDown = (event) => {
+		console.log(event);
+		if (event.keyCode === 13) {
+			this.handleLogin();
+		}
 	};
 
 	render() {
@@ -89,10 +97,11 @@ class Login extends Component {
 									className="form-control"
 									value={this.state.password}
 									onChange={(event) => this.handleOnChangePassword(event)}
+									onKeyDown={(event) => this.handleKeyDown(event)}
 								/>
 								<span
 									onClick={() => {
-										this.handleShowHidPassword();
+										this.handleShowHidePassword();
 									}}
 								>
 									<i className={this.state.isShowPassword ? 'far fa-eye' : 'far fa-eye-slash'}></i>

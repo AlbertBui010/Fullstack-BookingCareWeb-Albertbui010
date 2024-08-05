@@ -108,6 +108,7 @@ class ManageDoctor extends Component {
 			description: event.target.value,
 		});
 	};
+
 	render() {
 		let { hasOldData } = this.state;
 		return (
