@@ -4,9 +4,12 @@ import './ManageSchedule.scss';
 import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import * as actions from '../../../store/actions';
-import { LANGUAGES } from '../../../utils';
+import { dateFormat, LANGUAGES } from '../../../utils';
 import DatePicker from '../../../components/Input/DatePicker';
-import moment, { lang } from 'moment';
+import moment from 'moment';
+import { toast } from 'react-toastify';
+import _ from 'lodash';
+import reactRouter from 'react-router';
 
 class ManageSchedule extends Component {
 	constructor(props) {
@@ -57,9 +60,13 @@ class ManageSchedule extends Component {
 			});
 		}
 
-		if (prevProps.allScheduleTimeFromRedux !== this.props.allScheduleTimeFromRedux) {
+		if (prevProps.allScheduleTimeRedux !== this.props.allScheduleTimeRedux) {
+			let data = this.props.allScheduleTimeRedux;
+			if (data && data.length > 0) {
+				data = data.map((item) => ({ ...item, isSelected: false }));
+			}
 			this.setState({
-				timeRange: this.props.allScheduleTimeFromRedux,
+				timeRange: data,
 			});
 		}
 	}
@@ -69,13 +76,55 @@ class ManageSchedule extends Component {
 	};
 
 	handleOnChangeDatePicker = (date) => {
-		this.setState({ currentDate: date[0] });
+		// Format date from timestamp into DateTime(dd/mm/yyyy)
+		this.setState({ currentDate: moment(date[0]).format(dateFormat.SEND_TO_SERVER) });
+	};
+
+	handleClickBtnTime = (time) => {
+		let { timeRange } = this.state;
+		if (timeRange && timeRange.length > 0) {
+			time.isSelected ? (time.isSelected = false) : (time.isSelected = true);
+		}
+		this.setState({
+			timeRange: timeRange,
+		});
+	};
+
+	handleSaveSchedule = () => {
+		let { timeRange, selectedDoctor, currentDate } = this.state;
+		let result = [];
+		if (selectedDoctor && _.isEmpty(selectedDoctor)) {
+			toast.error('Invalid selected doctor');
+			return;
+		}
+		if (!currentDate) {
+			toast.error('Invalid date');
+			return;
+		}
+		if (timeRange && timeRange.length > 0) {
+			let selectedTimeSlots = timeRange.filter((item) => item.isSelected === true);
+			if (selectedTimeSlots && selectedTimeSlots.length > 0) {
+				selectedTimeSlots.map((timeSlot) => {
+					result.push(
+						new Object({
+							doctorId: selectedDoctor.value,
+							date: currentDate,
+							time: timeSlot.keyMap,
+						}),
+					);
+				});
+			} else {
+				toast.error('Invalid selected time slot');
+				return;
+			}
+		}
+		console.log('Data:', result);
 	};
 
 	render() {
-		console.log('Albert check time range:', this.state);
 		let { timeRange } = this.state;
 		let { language } = this.props;
+		console.log(this.state);
 		return (
 			<div className="manage-schedule-container">
 				<div className="msch-title">
@@ -109,13 +158,21 @@ class ManageSchedule extends Component {
 								timeRange.length > 0 &&
 								timeRange.map((item, index) => {
 									return (
-										<button className="btn btn-schedule" key={index}>
+										<button
+											className={
+												item.isSelected === true
+													? 'btn btn-schedule active'
+													: 'btn btn-schedule'
+											}
+											key={index}
+											onClick={() => this.handleClickBtnTime(item)}
+										>
 											{language && language === LANGUAGES.VI ? item.valueVi : item.valueEn}
 										</button>
 									);
 								})}
 						</div>
-						<button className="btn-manage-sch btn btn-primary">
+						<button className="btn-manage-sch btn btn-primary" onClick={() => this.handleSaveSchedule()}>
 							<FormattedMessage id="manage-schedule.btn-save" />
 						</button>
 					</div>
@@ -130,7 +187,7 @@ const mapStateToProps = (state) => {
 		isLoggedIn: state.user.isLoggedIn,
 		language: state.app.language,
 		allDoctorsFromRedux: state.admin.allDoctors,
-		allScheduleTimeFromRedux: state.admin.allScheduleTime,
+		allScheduleTimeRedux: state.admin.allScheduleTime,
 	};
 };
 

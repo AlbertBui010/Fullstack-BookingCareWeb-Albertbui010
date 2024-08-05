@@ -86,6 +86,7 @@ class Login extends Component {
 								className="form-control"
 								value={this.state.username}
 								onChange={(event) => this.handleOnChangeUsername(event)}
+								onKeyDown={(event) => this.handleKeyDown(event)}
 							/>
 						</div>
 						<div className="col-12 form-group login-input">

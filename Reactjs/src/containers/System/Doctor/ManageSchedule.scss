@@ -22,14 +22,26 @@
             border-radius: 0;
             background-color: cornsilk;
 
-            &:hover,
-            &:focus {
-                background-color: rgb(245, 231, 174);
-                box-shadow: none;
+            &:hover {
+                background-color: rgb(248, 236, 187);
+
+            }
+
+            &.active {
+                background-color: rgb(243, 221, 135);
+                font-weight: 600;
+
+                &:hover {
+                    background-color: rgb(248, 236, 187);
+                }
             }
 
             &:focus {
-                border: 2px solid black;
+                box-shadow: none;
+            }
+
+            &:active {
+                border: 1px solid black;
             }
         }
     }
