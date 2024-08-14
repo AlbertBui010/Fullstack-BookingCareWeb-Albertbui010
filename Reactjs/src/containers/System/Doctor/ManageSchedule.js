@@ -9,7 +9,7 @@ import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
-import reactRouter from 'react-router';
+import { saveBulkScheduleDoctor } from '../../../services/userService';
 
 class ManageSchedule extends Component {
 	constructor(props) {
@@ -77,7 +77,7 @@ class ManageSchedule extends Component {
 
 	handleOnChangeDatePicker = (date) => {
 		// Format date from timestamp into DateTime(dd/mm/yyyy)
-		this.setState({ currentDate: moment(date[0]).format(dateFormat.SEND_TO_SERVER) });
+		this.setState({ currentDate: date[0] });
 	};
 
 	handleClickBtnTime = (time) => {
@@ -90,7 +90,7 @@ class ManageSchedule extends Component {
 		});
 	};
 
-	handleSaveSchedule = () => {
+	handleSaveSchedule = async () => {
 		let { timeRange, selectedDoctor, currentDate } = this.state;
 		let result = [];
 		if (selectedDoctor && _.isEmpty(selectedDoctor)) {
@@ -101,6 +101,11 @@ class ManageSchedule extends Component {
 			toast.error('Invalid date');
 			return;
 		}
+
+		// let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+		let formatedDatez = new Date(currentDate).getTime();
+		console.log('check: ', formatedDatez);
+
 		if (timeRange && timeRange.length > 0) {
 			let selectedTimeSlots = timeRange.filter((item) => item.isSelected === true);
 			if (selectedTimeSlots && selectedTimeSlots.length > 0) {
@@ -108,8 +113,8 @@ class ManageSchedule extends Component {
 					result.push(
 						new Object({
 							doctorId: selectedDoctor.value,
-							date: currentDate,
-							time: timeSlot.keyMap,
+							date: formatedDatez,
+							timeType: timeSlot.keyMap,
 						}),
 					);
 				});
@@ -118,7 +123,12 @@ class ManageSchedule extends Component {
 				return;
 			}
 		}
-		console.log('Data:', result);
+
+		let res = await saveBulkScheduleDoctor({
+			arrSchedule: result,
+			doctorId: selectedDoctor.value,
+			dateFormatted: formatedDatez,
+		});
 	};
 
 	render() {
