@@ -104,7 +104,6 @@ class ManageSchedule extends Component {
 
 		// let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
 		let formatedDatez = new Date(currentDate).getTime();
-		console.log('check: ', formatedDatez);
 
 		if (timeRange && timeRange.length > 0) {
 			let selectedTimeSlots = timeRange.filter((item) => item.isSelected === true);
@@ -129,6 +128,10 @@ class ManageSchedule extends Component {
 			doctorId: selectedDoctor.value,
 			dateFormatted: formatedDatez,
 		});
+
+		if (res && res.data.errCode === 0) {
+			toast.success('Save schedule successfully!');
+		}
 	};
 
 	render() {
