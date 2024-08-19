@@ -156,25 +156,22 @@ let bulkCreateScheduleServices = (data) => {
 					raw: true,
 				});
 
-				if (existing && existing.length > 0) {
-					existing = existing.map((item) => {
-						item.date = new Date(item.date).getTime();
-						return item;
-					});
-				}
-
 				let toCreate = _.differenceWith(schedule, existing, (a, b) => {
-					return a.timeType === b.timeType && a.date === b.date;
+					return a.timeType === b.timeType && +a.date === +b.date;
 				});
 
 				if (toCreate && toCreate.length > 0) {
 					await db.Schedule.bulkCreate(toCreate);
+					resolve({
+						errCode: 0,
+						errMessage: 'OK',
+					});
+				} else {
+					resolve({
+						errCode: 1,
+						errMessage: 'Duplicate data',
+					});
 				}
-
-				resolve({
-					errCode: 0,
-					errMessage: 'OK',
-				});
 			}
 		} catch (e) {
 			reject(e);
@@ -196,8 +193,10 @@ let getScheduleDoctorByDateServices = (doctorId, date) => {
 						doctorId: doctorId,
 						date: date,
 					},
+					include: [{ model: db.Allcode, as: 'timeTypeData', attributes: ['valueEn', 'valueVi'] }],
+					raw: false,
+					nest: true,
 				});
-				console.log('check dataSchedule: ', dataSchedule);
 
 				if (!dataSchedule) dataSchedule = [];
 				resolve({

@@ -103,7 +103,7 @@ class ManageSchedule extends Component {
 		}
 
 		// let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
-		let formatedDatez = new Date(currentDate).getTime();
+		let formatedDate = new Date(currentDate).getTime();
 
 		if (timeRange && timeRange.length > 0) {
 			let selectedTimeSlots = timeRange.filter((item) => item.isSelected === true);
@@ -112,7 +112,7 @@ class ManageSchedule extends Component {
 					result.push(
 						new Object({
 							doctorId: selectedDoctor.value,
-							date: formatedDatez,
+							date: formatedDate,
 							timeType: timeSlot.keyMap,
 						}),
 					);
@@ -126,11 +126,13 @@ class ManageSchedule extends Component {
 		let res = await saveBulkScheduleDoctor({
 			arrSchedule: result,
 			doctorId: selectedDoctor.value,
-			dateFormatted: formatedDatez,
+			dateFormatted: formatedDate,
 		});
 
 		if (res && res.data.errCode === 0) {
 			toast.success('Save schedule successfully!');
+		} else {
+			toast.error('This time period has been selected!');
 		}
 	};
 
