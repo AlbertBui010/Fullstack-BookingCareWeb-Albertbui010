@@ -71,5 +71,17 @@
 			"choose": "Chọn",
 			"book-free": "và đặt (miễn phí)"
 		}
+	},
+	"admin": {
+		"manage-doctor": {
+			"title": "Tạo thêm thồng tin bác sĩ",
+			"select-doctor": "Chọn bác sĩ",
+			"introduction": "Thông tin giới thiệu",
+			"update-information": "Lưu thông tin",
+			"save-information": "Thêm thông tin",
+			"select-price": "Chọn giá",
+			"select-payment-method": "Chọn phương thức thanh toán",
+			"select-province": "Chọn tỉnh thành"
+		}
 	}
 }
