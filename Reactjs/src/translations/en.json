@@ -106,9 +106,12 @@
 			"introduction": "Introduction",
 			"update-information": "Update information",
 			"save-information": "Save information",
-			"select-price": "Choose price",
-			"select-payment-method": "Choose payment method",
-			"select-province": "Choose province"
+			"price": "Price",
+			"payment-method": "Payment method",
+			"province": "Province",
+			"nameClinic": "Clinic's name",
+			"addressClinic": "Clinic's address",
+			"note": "Note"
 		}
 	}
 }

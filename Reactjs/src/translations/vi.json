@@ -79,9 +79,13 @@
 			"introduction": "Thông tin giới thiệu",
 			"update-information": "Lưu thông tin",
 			"save-information": "Thêm thông tin",
-			"select-price": "Chọn giá",
-			"select-payment-method": "Chọn phương thức thanh toán",
-			"select-province": "Chọn tỉnh thành"
+			"price": "Giá khám",
+			"payment-method": "Phương thức thanh toán",
+			"province": "Tỉnh thành",
+
+			"nameClinic": "Tên phòng khám",
+			"addressClinic": "Địa chỉ phòng khám",
+			"note": "Ghi chú"
 		}
 	}
 }

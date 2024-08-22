@@ -259,7 +259,6 @@ export const saveDetailInforDoctor = (data) => {
 	return async (dispatch, getState) => {
 		try {
 			let res = await saveDetailInforDoctorServices(data);
-			console.log('ALbert check res from adminAction: ', res);
 			if (res.data && res.data.errCode === 0) {
 				toast.success('Update detail information doctor successfully');
 				dispatch({

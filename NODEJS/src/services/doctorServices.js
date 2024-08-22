@@ -55,12 +55,26 @@ let getAllDoctorsServices = () => {
 let saveDetailInforDoctorServices = (data) => {
 	return new Promise(async (resolve, reject) => {
 		try {
-			if (!data.doctorId || !data.contentHTML || !data.contentMarkdown || !data.action) {
+			const requiredFields = [
+				'doctorId',
+				'contentHTML',
+				'contentMarkdown',
+				'action',
+				'selectedPrice',
+				'selectedPayment',
+				'selectedProvince',
+				'nameClinic',
+				'addressClinic',
+				'note',
+			];
+			const missingField = requiredFields.find((field) => !data[field]);
+			if (missingField) {
 				resolve({
 					errCode: 1,
 					errMessage: 'Missing parameter',
 				});
 			} else {
+				// UPSERT to Mardown
 				if (data.action === 'CREATE') {
 					await db.Markdown.create({
 						contentHTML: data.contentHTML,
@@ -80,6 +94,41 @@ let saveDetailInforDoctorServices = (data) => {
 							{ where: { doctorId: data.doctorId } },
 						);
 					}
+				}
+
+				// UPSERT to Doctor_Infor
+				let doctorInfor = await db.Doctor_Infor.findOne({
+					where: {
+						doctorId: data.doctorId,
+					},
+					raw: false,
+				});
+
+				if (doctorInfor) {
+					// Update
+					await db.Doctor_Infor.update(
+						{
+							priceId: data.selectedPrice,
+							paymentId: data.selectedPayment,
+							provinceId: data.selectedProvince,
+							nameClinic: data.nameClinic,
+							addressClinic: data.addressClinic,
+							note: data.note,
+							// updatedAt: new Date(),
+						},
+						{ where: { doctorId: data.doctorId } },
+					);
+				} else {
+					// Insert
+					await db.Doctor_Infor.create({
+						doctorId: data.doctorId,
+						priceId: data.selectedPrice,
+						paymentId: data.selectedPayment,
+						provinceId: data.selectedProvince,
+						nameClinic: data.nameClinic,
+						addressClinic: data.addressClinic,
+						note: data.note,
+					});
 				}
 
 				resolve({

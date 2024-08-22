@@ -34,7 +34,7 @@ module.exports = {
 				allowNull: false,
 			},
 			note: {
-				type: Sequelize.INTEGER,
+				type: Sequelize.STRING,
 			},
 			count: {
 				type: Sequelize.INTEGER,
