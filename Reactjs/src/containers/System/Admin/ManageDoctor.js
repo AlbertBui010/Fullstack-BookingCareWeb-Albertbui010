@@ -149,15 +149,53 @@ class ManageDoctor extends Component {
 
 	handleSelectedChange = async (selectedOption) => {
 		this.setState({ selectedOption });
+		let { listPayment, listPrice, listProvince } = this.state;
+
 		let res = await getDetailInforDoctor(selectedOption.value);
 		let resData = res.data;
 		if (resData && resData.errCode === 0 && resData.data && resData.data.Markdown) {
 			let markdown = resData.data.Markdown;
+			let addressClinic = '',
+				nameClinic = '',
+				note = '',
+				paymentId = '',
+				priceId = '',
+				provinceId = '',
+				selectedPayment = '',
+				selectedPrice = '',
+				selectedProvince = '';
+
+			if (resData.data.Doctor_Infor) {
+				let data = resData.data.Doctor_Infor;
+				addressClinic = data.addressClinic;
+				nameClinic = data.nameClinic;
+				note = data.note;
+
+				paymentId = data.paymentId;
+				priceId = data.priceId;
+				provinceId = data.provinceId;
+
+				selectedPayment = listPayment.find((item) => {
+					return item && item.value === paymentId;
+				});
+				selectedPrice = listPrice.find((item) => {
+					return item && item.value === priceId;
+				});
+				selectedProvince = listProvince.find((item) => {
+					return item && item.value === provinceId;
+				});
+			}
 			this.setState({
 				contentHTML: markdown.contentHTML,
 				contentMarkdown: markdown.contentMarkdown,
 				description: markdown.description,
 				hasOldData: true,
+				addressClinic: addressClinic,
+				nameClinic: nameClinic,
+				note: note,
+				selectedPayment: selectedPayment,
+				selectedPrice: selectedPrice,
+				selectedProvince: selectedProvince,
 			});
 		} else {
 			this.setState({
@@ -165,6 +203,12 @@ class ManageDoctor extends Component {
 				contentMarkdown: '',
 				description: '',
 				hasOldData: false,
+				addressClinic: '',
+				nameClinic: '',
+				note: '',
+				selectedPayment: '',
+				selectedPrice: '',
+				selectedProvince: '',
 			});
 		}
 	};
