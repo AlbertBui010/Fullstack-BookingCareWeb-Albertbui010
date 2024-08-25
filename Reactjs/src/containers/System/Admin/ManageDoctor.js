@@ -35,12 +35,10 @@ class ManageDoctor extends Component {
 			note: '',
 		};
 	}
-
 	componentDidMount() {
 		this.props.fetchAllDoctors();
 		this.props.getAllRequiredDoctorInfor();
 	}
-
 	buildDataInputSelect = (inputData, type) => {
 		let result = [];
 		let { language } = this.props;
@@ -82,7 +80,6 @@ class ManageDoctor extends Component {
 		}
 		return result;
 	};
-
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		if (prevProps.allDoctorsFromRedux !== this.props.allDoctorsFromRedux) {
 			let dataSelect = this.buildDataInputSelect(this.props.allDoctorsFromRedux, 'USERS');
@@ -120,14 +117,12 @@ class ManageDoctor extends Component {
 			});
 		}
 	}
-
 	handleEditorChange = ({ html, text }) => {
 		this.setState({
 			contentMarkdown: text,
 			contentHTML: html,
 		});
 	};
-
 	handleSaveContentMarkdown = () => {
 		let { hasOldData } = this.state;
 
@@ -146,7 +141,6 @@ class ManageDoctor extends Component {
 			note: this.state.note,
 		});
 	};
-
 	handleSelectedChange = async (selectedOption) => {
 		this.setState({ selectedOption });
 		let { listPayment, listPrice, listProvince } = this.state;
@@ -212,7 +206,6 @@ class ManageDoctor extends Component {
 			});
 		}
 	};
-
 	handleSelectedChangeDoctorInfor = async (selectedOption, name) => {
 		let stateName = name.name;
 		let stateCopy = { ...this.state };
@@ -222,7 +215,6 @@ class ManageDoctor extends Component {
 		});
 		console.log('Albert check selected onchange: ', selectedOption, name);
 	};
-
 	handleOnChangeText = (event, id) => {
 		let stateCopy = { ...this.state };
 		stateCopy[id] = event.target.value;
@@ -233,7 +225,6 @@ class ManageDoctor extends Component {
 	};
 
 	render() {
-		console.log(this.state);
 		let { hasOldData } = this.state;
 		return (
 			<div className="manage-doctor-container">
