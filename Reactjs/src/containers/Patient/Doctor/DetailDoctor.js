@@ -57,7 +57,7 @@ class DetailDoctor extends Component {
 							className="content-left"
 							style={{ backgroundImage: `url(${detailDoctor.image ? detailDoctor.image : ''})` }}
 						></div>
-						<div className="content-righ">
+						<div className="content-right">
 							<div className="title-doctor">{language === LANGUAGES.VI ? nameVi : nameEn}</div>
 							<div className="intro-self">
 								{detailDoctor.Markdown && detailDoctor.Markdown.description && (
