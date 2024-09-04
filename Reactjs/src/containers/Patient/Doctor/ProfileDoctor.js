@@ -5,6 +5,8 @@ import './ProfileDoctor.scss';
 import { getProfileDoctorById } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils';
 import NumberFormat from 'react-number-format';
+import _ from 'lodash';
+import moment, { lang } from 'moment';
 
 class ProfileDoctor extends Component {
 	constructor(props) {
@@ -39,11 +41,37 @@ class ProfileDoctor extends Component {
 			// this.getInforDoctor(this.props.doctorId);
 		}
 	}
+	capitalizeFirstLetter(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
+	renderTimeBooking = (dataTime) => {
+		let { language } = this.props;
+		if (dataTime && !_.isEmpty(dataTime)) {
+			let time = language === LANGUAGES.VI ? dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn;
+			let date =
+				language === LANGUAGES.VI
+					? this.capitalizeFirstLetter(moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY'))
+					: moment
+							.unix(+dataTime.date / 1000)
+							.locale('en')
+							.format('ddd - MM/DD/YYYY');
+			return (
+				<>
+					<div>
+						{time} | {date}
+					</div>
+					<div>Mien phi dat lich</div>
+				</>
+			);
+		}
+		return <></>;
+	};
 
 	render() {
 		let { dataProfile } = this.state;
-		let { language } = this.props;
-
+		let { language, isShowDescriptionDoctor, dataTime } = this.props;
+		console.log('Albert check props: ', this.props);
 		let nameVi = '',
 			nameEn = '';
 
@@ -63,8 +91,14 @@ class ProfileDoctor extends Component {
 					<div className="content-right">
 						<div className="title-doctor">{language === LANGUAGES.VI ? nameVi : nameEn}</div>
 						<div className="intro-self">
-							{dataProfile.Markdown && dataProfile.Markdown.description && (
-								<span>{dataProfile.Markdown.description}</span>
+							{isShowDescriptionDoctor ? (
+								<>
+									{dataProfile.Markdown && dataProfile.Markdown.description && (
+										<span>{dataProfile.Markdown.description}</span>
+									)}
+								</>
+							) : (
+								<>{this.renderTimeBooking(dataTime)}</>
 							)}
 						</div>
 					</div>
