@@ -103,6 +103,21 @@
 			"view-detail": "View detail",
 			"hide-detail": "Hide detail",
 			"payment-method-des": "Can be paid by: "
+		},
+		"booking-modal": {
+			"title": "Appointment Information",
+			"fullName": "Full name",
+			"phonenumber": "Phone number",
+			"address": "Address",
+			"reason": "Reason",
+			"birthday": "Birthday",
+			"gender": "Gender",
+			"confirm": "Confirm",
+			"cancel": "Cancel",
+			"select-gender": "Choose gender",
+			"profile-doctor": {
+				"price": "Price:"
+			}
 		}
 	},
 

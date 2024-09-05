@@ -1,4 +1,3 @@
-import { where } from 'sequelize';
 import db from '../models/index';
 require('dotenv').config();
 
@@ -15,6 +14,7 @@ let postBookAppointmentServices = (data) => {
 			} else {
 				//update
 				//insert
+
 				let user = await db.User.findOrCreate({
 					where: { email: data.email },
 					defaults: {

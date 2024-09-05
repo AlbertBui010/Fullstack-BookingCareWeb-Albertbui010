@@ -77,6 +77,22 @@
 			"view-detail": "Xem chi tiết",
 			"hide-detail": "Ẩn bảng giá",
 			"payment-method-des": "Có thể thanh toán bằng hình thức: "
+		},
+		"booking-modal": {
+			"title": "Thông tin đặt lịch khám bệnh",
+			"fullName": "Họ và tên",
+			"phonenumber": "Số điện thoại",
+			"address": "Địa chỉ",
+			"reason": "Lý do khám",
+			"birthday": "Ngày sinh",
+			"gender": "Giới tính",
+			"confirm": "Xác nhận",
+			"cancel": "Hủy",
+			"select-gender": "Chọn giới tính",
+
+			"profile-doctor": {
+				"price": "Giá khám:"
+			}
 		}
 	},
 	"admin": {
