@@ -5,7 +5,7 @@ import emailService from './emailServices';
 let postBookAppointmentServices = (data) => {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const requiredFields = ['email', 'doctorId', 'timeType', 'date'];
+			const requiredFields = ['email', 'doctorId', 'timeType', 'date', 'fullName'];
 			const missingField = requiredFields.find((field) => !data[field]);
 			if (missingField) {
 				resolve({
@@ -17,9 +17,10 @@ let postBookAppointmentServices = (data) => {
 				//insert
 				await emailService.sendSimpleEmail({
 					receiverEmail: data.email,
-					patientName: 'Albert Bui',
-					time: '800-900',
-					doctorName: 'Albert doctor',
+					patientName: data.fullName,
+					time: data.timeString,
+					doctorName: data.doctorName,
+					language: data.language,
 					redirectLink: 'https://www.youtube.com/watch?v=0GL--Adfqhc&t=1116s',
 				});
 

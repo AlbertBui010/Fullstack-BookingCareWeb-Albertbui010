@@ -11,6 +11,7 @@ import { LANGUAGES } from '../../../../utils';
 import Select from 'react-select';
 import { postPatientBookAppointment } from '../../../../services/userService';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 
 class BookingModal extends Component {
 	constructor(props) {
@@ -92,6 +93,8 @@ class BookingModal extends Component {
 	handleConfirmBooking = async () => {
 		//validate input
 		let date = new Date(this.state.birthday).getTime();
+		let timeString = this.buildTimeBooking(this.props.dataTime);
+		let { dataTime } = this.props;
 		let res = await postPatientBookAppointment({
 			doctorId: this.state.doctorId,
 			email: this.state.email,
@@ -102,6 +105,9 @@ class BookingModal extends Component {
 			address: this.state.address,
 			reason: this.state.reason,
 			selectedGender: this.state.selectedGender.value,
+			language: this.props.language,
+			timeString: timeString,
+			doctorName: this.buildDoctorName(dataTime.doctorData),
 		});
 		if (res && res.data && res.data.errCode === 0) {
 			toast.success('Booking a new appointment success!');
@@ -111,10 +117,40 @@ class BookingModal extends Component {
 		}
 		console.log('Albert check confirm button res: ', res);
 	};
+	capitalizeFirstLetter(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+	buildTimeBooking = (dataTime) => {
+		let { language } = this.props;
+		if (dataTime && !_.isEmpty(dataTime)) {
+			let time = language === LANGUAGES.VI ? dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn;
+			let date =
+				language === LANGUAGES.VI
+					? this.capitalizeFirstLetter(moment.unix(+dataTime.date / 1000).format('dddd - DD/MM/YYYY'))
+					: moment
+							.unix(+dataTime.date / 1000)
+							.locale('en')
+							.format('ddd - MM/DD/YYYY');
+			return `${time} - ${date}`;
+		}
+		return ``;
+	};
+	buildDoctorName = (doctorData) => {
+		let { language } = this.props;
+		if (doctorData && !_.isEmpty(doctorData)) {
+			let name =
+				language === LANGUAGES.VI
+					? `${doctorData.lastName} ${doctorData.firstName}`
+					: `${doctorData.firstName} ${doctorData.lastName}`;
+			return name;
+		}
+		return ``;
+	};
 	render() {
 		let { isOpenModal, closeBookingModal, dataTime } = this.props;
 		let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : '';
-
+		let doctorName = this.buildDoctorName(dataTime.doctorData);
+		console.log('Albert check dataTime:', dataTime);
 		return (
 			<div>
 				<Modal isOpen={isOpenModal} size="lg" centered className={'booking-modal-container'}>
