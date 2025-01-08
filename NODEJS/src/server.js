@@ -8,6 +8,7 @@ import cors from 'cors';
 require('dotenv').config();
 let app = express();
 app.use(cors({ origin: true, credentials: true }));
+
 // Config app
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));

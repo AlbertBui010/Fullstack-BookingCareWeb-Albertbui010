@@ -6,9 +6,9 @@ let handleLogin = async (req, res) => {
 
 	// Check email exist
 	if (!email || !password) {
-		return res.status(500).json({
+		return res.status(200).json({
 			errCode: 1,
-			message: 'Misssing inputs parameter!',
+			message: 'Missing inputs parameter!',
 		});
 	}
 
